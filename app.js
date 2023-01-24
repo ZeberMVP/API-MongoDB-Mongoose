@@ -9,6 +9,7 @@ const error404 = require('./middlewares/error404')
 const booksRoutes = require('./routes/booksRoutes')
 const productsRoutes = require('./routes/productsRoutes')
 const productsApiRoutes = require('./routes/productsApiRoutes')
+const providersApiRoutes = require('./routes/providersApiRoutes')
 const entriesApiRoutes = require('./routes/entriesApiRoutes')
 
 const app = express()
@@ -33,6 +34,7 @@ app.get('/', (req, res) => {
 app.use('/books',booksRoutes); // Books
 app.use('/products',productsRoutes); // Rutas web products
 app.use('/api/products',productsApiRoutes); // Rutas web API products
+app.use('/api/providers',providersApiRoutes); // Rutas web API providers
 app.use('/api/entries',entriesApiRoutes); // Rutas API entries
 app.use(error404); // Middleware Para ruta no encontrada (404)
 

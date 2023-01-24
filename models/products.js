@@ -18,7 +18,7 @@ const objectSchema = {
         type: String, 
         required: true 
     },
-    image:{
+    image: {
         type: String,
         validate: {
             validator: function(url){
@@ -30,6 +30,10 @@ const objectSchema = {
             }, 
             message: "Porfa, sólo imágenes JPG o PNG"
         }
+    },
+    company: {
+        type: String,
+        required: true
     }
 };
 // Crear el esquema
