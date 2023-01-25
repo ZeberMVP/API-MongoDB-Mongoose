@@ -26,7 +26,7 @@ const Provider = mongoose.model('Provider', providerSchema);
 module.exports = Provider;
 
 // Insertar un provider
-
+/*
 const pr = new Provider({
     company_name: "Oreo",
     CIF: "D4575444577",
@@ -35,4 +35,4 @@ const pr = new Provider({
 });
 
 pr.save().then((data)=>console.log(data));
-
+*/

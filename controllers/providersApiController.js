@@ -22,8 +22,7 @@ const createProvider = async (req,res) => {
         console.log("Este es el console.log de lo que devuelve la api", answer);
 
         res.status(201).json({
-            msj: `Provider ${answer.title} guardado en el sistema con ID: ${answer.id}`,
-            "provider": answer
+            message: "proveedor creado", product:{answer}
         });
     }catch(err){
         console.log("Este es el error que devuelve la api", err.message);
