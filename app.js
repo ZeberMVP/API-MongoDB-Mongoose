@@ -1,5 +1,6 @@
 const express = require('express')
 const cowsay = require('cowsay')
+const morgan = require('morgan');
 
 require('./utils/db_mongo'); // conectarse a la BBDD Mongo
 const calculator = require('./utils/calculator')
@@ -23,6 +24,27 @@ app.set('views', './views');
 app.use(express.json()); // Habilitar tipo de dato a recibir
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'))
+
+morgan.token('id', function getId(req) {
+    return req.id
+});
+
+var loggerFormat = ':id [:date[web]] ":method :url" :status :response-time';
+
+app.use(morgan(loggerFormat, {
+    skip: function (req, res) {
+        return res.statusCode < 400
+    },
+    stream: process.stderr
+}));
+
+app.use(morgan(loggerFormat, {
+    skip: function (req, res) {
+        return res.statusCode >= 400
+    },
+    stream: process.stdout
+}));
+
 
 app.get('/', (req, res) => {
     const calc = calculator.add(2, 2);

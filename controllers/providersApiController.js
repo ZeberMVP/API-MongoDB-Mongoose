@@ -32,7 +32,43 @@ const createProvider = async (req,res) => {
     }
 }
 
+const updateProvider = async (req, res) => {
+    const {company_name, new_company_name, CIF, address, url_web} = req.body
+    try {
+        const provider = await Provider.findOneAndUpdate({ company_name }, { $set: { company_name: new_company_name,  CIF, address, url_web} }, { new: true });
+        console.log(provider)
+        res.status(201).json({
+            message: "proveedor modificado", product:{provider}
+        });
+    }
+    catch (err){
+        console.log("Este es el error que devuelve la api", err.message);
+        res.status(400).json({
+            msj: err.message
+        });
+    }
+}
+
+const deleteProvider = async (req, res) => {
+    const {company_name} = req.body
+    try {
+        const provider = await Provider.findOneAndRemove({ company_name });
+        console.log(provider)
+        res.status(200).json({
+            message: "proveedor borrado", product:{provider}
+        });
+    }
+    catch (err){
+        console.log("Este es el error que devuelve la api", err.message);
+        res.status(400).json({
+            msj: err.message
+        });
+    }
+}
+
 module.exports = {
     getProviders,
-    createProvider
+    createProvider,
+    updateProvider,
+    deleteProvider
 }

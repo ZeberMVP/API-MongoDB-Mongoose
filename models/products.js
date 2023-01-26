@@ -41,5 +41,17 @@ const productSchema = mongoose.Schema(objectSchema);
 // Crear el modelo --> Colección
 const Product = mongoose.model('Product', productSchema);
 
+/*Objeto de prueba para crear*/
+/*
+{
+    "id": 1,
+    "title": "Galletas Oreo",
+    "price": 1.2,
+    "description": "Pack de cuatro bolsas de galletas Oreo",
+    "image": "https://estoyhechouncocinillas.com/wp-content/uploads/2015/08/tostadas_con_tomate.png",
+    "company": "Oreo" (Debes haber creado el provider "Oreo" antes)
+}
+*/
+
 module.exports = Product;
 
