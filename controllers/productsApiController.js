@@ -50,7 +50,45 @@ const createProduct = async (req,res) => {
     }
 }
 
+const updateProduct = async (req, res) => {
+    const {id, title, new_title, price, description, image, company} = req.body
+    const provider = await Provider.find({company_name: company});
+    const provider_id = provider[0]._id.toString();
+    try {
+        const product = await Product.findOneAndUpdate({ title }, { $set: { id, title: new_title,  price, description, image, company: provider_id} }, { new: true });
+        console.log(product)
+        res.status(201).json({
+            message: "producto modificado", product:{product}
+        });
+    }
+    catch (err){
+        console.log("Este es el error que devuelve la api", err.message);
+        res.status(400).json({
+            msj: err.message
+        });
+    }
+}
+
+const deleteProduct = async (req, res) => {
+    const {title} = req.body
+    try {
+        const product = await Product.findOneAndRemove({ title });
+        console.log(product)
+        res.status(200).json({
+            message: "producto borrado", product:{product}
+        });
+    }
+    catch (err){
+        console.log("Este es el error que devuelve la api", err.message);
+        res.status(400).json({
+            msj: err.message
+        });
+    }
+}
+
 module.exports = {
     getProducts,
     createProduct,
+    updateProduct,
+    deleteProduct
 }
