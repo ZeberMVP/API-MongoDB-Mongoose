@@ -1,5 +1,7 @@
 // Controlador - Lógica de negocio de la app
 const Provider = require('../models/providers');
+const Product = require('../models/products');
+const { deleteMany } = require('../models/products');
 
 const getProviders = async (req,res) => {
         try {
@@ -51,7 +53,11 @@ const updateProvider = async (req, res) => {
 
 const deleteProvider = async (req, res) => {
     const {company_name} = req.body
+    const provider = await Provider.find({company_name});
+    const provider_id = provider[0]._id.toString();
     try {
+        const product = await Product.deleteMany({company: provider_id});
+        console.log(product)
         const provider = await Provider.findOneAndRemove({ company_name });
         console.log(provider)
         res.status(200).json({
